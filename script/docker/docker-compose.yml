@@ -1,0 +1,95 @@
+name: yudao-system
+
+services:
+  mysql:
+    container_name: yudao-mysql
+    image: mysql:8.4
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:33306:3306" # 本机 3306 被 MySQL9J 占用，改映射 33306
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ruoyi-vue-pro}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-123456}
+      MYSQL_ROOT_HOST: '%' # 允许 server 容器跨网络连 root
+      TZ: Asia/Shanghai
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+      # 必须与 Windows 本机 MySQL 一致（本机 lower_case_table_names=1）。
+      # Linux 容器默认 0 区分大小写，会导致 dump 导入的表名（大写字面量）
+      # 与 Flowable 探测（小写）不匹配，出现大小写双表、schema 错乱、重复外键报错。
+      - --lower-case-table-names=1
+    volumes:
+      - mysql:/var/lib/mysql/
+      - ./mysql-init/:/docker-entrypoint-initdb.d/:ro # 首次建库自动导入 dump
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p${MYSQL_ROOT_PASSWORD:-123456} --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 120s
+
+  redis:
+    container_name: yudao-redis
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:36379:6379" # 本机 6379 被 Redis 占用，改映射 36379
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  server:
+    container_name: yudao-server
+    build:
+      context: ../../yudao-server # 相对 script/docker/，上跳两级到项目根
+    image: yudao-server:lan
+    restart: unless-stopped
+    ports:
+      - "48080:48080"
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-all-local}
+      TZ: Asia/Shanghai
+      JAVA_OPTS: ${JAVA_OPTS:--Xms512m -Xmx1024m -Djava.security.egd=file:/dev/./urandom}
+      SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_URL: ${MASTER_DATASOURCE_URL:-jdbc:mysql://yudao-mysql:3306/ruoyi-vue-pro?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true&nullCatalogMeansCurrent=true}
+      SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_USERNAME: ${MASTER_DATASOURCE_USERNAME:-root}
+      SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_PASSWORD: ${MASTER_DATASOURCE_PASSWORD:-123456}
+      SPRING_DATA_REDIS_HOST: ${REDIS_HOST:-yudao-redis}
+      SPRING_DATA_REDIS_PORT: ${REDIS_PORT:-6379}
+      SPRING_DATA_REDIS_DATABASE: '0'
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "test \"$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:48080/)\" -ge 100"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 180s # all-local 全模块启动慢（Flowable 等），给足窗口
+
+  admin:
+    container_name: yudao-admin
+    build:
+      context: ../../yudao-ui/yudao-ui-admin-vue3 # 相对 script/docker/，上跳两级到项目根
+      args:
+        VITE_BASE_URL: ""
+        VITE_APP_CAPTCHA_ENABLE: "false"
+    image: yudao-admin:lan
+    restart: unless-stopped
+    ports:
+      - "8080:80" # 局域网入口
+    depends_on:
+      server:
+        condition: service_healthy
+
+volumes:
+  mysql:
+    driver: local
+  redis:
+    driver: local
