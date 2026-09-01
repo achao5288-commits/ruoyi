@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.iot.gateway.protocol.udp;
+﻿package cn.iocoder.yudao.module.iot.gateway.protocol.udp;
 
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.map.MapUtil;
@@ -73,7 +73,7 @@ public class IotGatewayDeviceUdpProtocolIntegrationTest {
     /**
      * 网关设备 Token：从 {@link #testAuth()} 方法获取后，粘贴到这里
      */
-    private static final String GATEWAY_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9kdWN0S2V5IjoibTZYY1MxWkozVFc4ZUMwdiIsImV4cCI6MTc2OTk1NDcxNSwiZGV2aWNlTmFtZSI6InN1Yi1kZGQifQ.Vg5iateNrpg0FVQI2eJomggxrYXGpwug8wsz9BsVr5w";
+    private static final String GATEWAY_TOKEN = "JWT-REDACTED";
 
     // ===================== 子设备信息（根据实际情况修改，从 iot_device 表查询子设备） =====================
     private static final String SUB_DEVICE_PRODUCT_KEY = "jAufEMTF1W6wnPhn";

@@ -1,4 +1,4 @@
-spring:
+﻿spring:
   application:
     name: yudao-server
 
@@ -164,11 +164,11 @@ spring:
       chat:
         model: llama3
     stabilityai:
-      api-key: sk-e53UqbboF8QJCscYvzJscJxJXoFcFg4iJjl1oqgE7baJETmx
+      api-key: sk-REDACTED
     dashscope: # 通义千问
       api-key: ${DASHSCOPE_API_KEY:sk-xxxx}
     deepseek: # DeepSeek
-      api-key: ${DEEPSEEK_API_KEY:sk-xxxx}
+      api-key: ${DEEPSEEK_API_KEY:${DEEPSEEK_API_KEY:}}
       chat:
         options:
           model: deepseek-v4-flash
@@ -247,7 +247,7 @@ yudao:
       enable: true
   #    base-url: https://api.holdai.top/mj-relax/mj
       base-url: https://api.holdai.top/mj
-      api-key: sk-dZEPiVaNcT3FHhef51996bAa0bC74806BeAb620dA5Da10Bf
+      api-key: sk-REDACTED
       notify-url: http://java.nat300.top/admin-api/ai/image/midjourney/notify
     suno:
       enable: true

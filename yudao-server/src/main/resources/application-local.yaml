@@ -22,6 +22,8 @@ spring:
       - com.alibaba.cloud.ai.autoconfigure.dashscope.DashScopeEmbeddingAutoConfiguration
       - com.alibaba.cloud.ai.autoconfigure.dashscope.DashScopeMultimodalEmbeddingAutoConfiguration
       - com.alibaba.cloud.ai.autoconfigure.dashscope.DashScopeAsyncToolCallingManagerAutoConfiguration
+      - cn.iocoder.yudao.module.iot.core.messagebus.config.IotMessageBusAutoConfiguration # Redis 3.x 不兼容，临时排除 IoT 消息总线
+      - org.jeecg.modules.jmreport.config.init.JimuReportConfiguration # JimuReport 与 Spring Boot 4 不兼容
   # 数据源配置项
   datasource:
     druid: # Druid 【监控】相关的全局配置

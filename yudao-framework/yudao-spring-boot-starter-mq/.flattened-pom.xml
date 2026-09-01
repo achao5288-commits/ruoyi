@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cn.iocoder.boot</groupId>
+  <artifactId>yudao-spring-boot-starter-mq</artifactId>
+  <version>2026.06-jdk25-SNAPSHOT</version>
+  <name>yudao-spring-boot-starter-mq</name>
+  <description>消息队列，支持 Redis、RocketMQ、RabbitMQ、Kafka 四种</description>
+  <url>https://github.com/YunaiV/ruoyi-vue-pro</url>
+  <dependencies>
+    <dependency>
+      <groupId>cn.iocoder.boot</groupId>
+      <artifactId>yudao-spring-boot-starter-redis</artifactId>
+      <version>2026.06-jdk25-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka</artifactId>
+      <version>4.1.0</version>
+      <scope>compile</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.amqp</groupId>
+      <artifactId>spring-rabbit</artifactId>
+      <version>4.1.0</version>
+      <scope>compile</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-spring-boot-starter</artifactId>
+      <version>2.3.6</version>
+      <scope>compile</scope>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <id>huaweicloud</id>
+      <name>huawei</name>
+      <url>https://mirrors.huaweicloud.com/repository/maven/</url>
+    </repository>
+    <repository>
+      <id>aliyunmaven</id>
+      <name>aliyun</name>
+      <url>https://maven.aliyun.com/repository/public</url>
+    </repository>
+  </repositories>
+</project>

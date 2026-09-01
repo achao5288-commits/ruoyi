@@ -1,6 +1,0 @@
-target/classes
-target/generated-sources
-target/maven-status
-target/jar-update
-target/*.log
-*.log

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cn.iocoder.boot</groupId>
+  <artifactId>yudao-spring-boot-starter-job</artifactId>
+  <version>2026.06-jdk25-SNAPSHOT</version>
+  <name>yudao-spring-boot-starter-job</name>
+  <description>任务拓展
+        1. 定时任务，基于 Quartz 拓展
+        2. 异步任务，基于 Spring Async 拓展</description>
+  <url>https://github.com/YunaiV/ruoyi-vue-pro</url>
+  <dependencies>
+    <dependency>
+      <groupId>cn.iocoder.boot</groupId>
+      <artifactId>yudao-common</artifactId>
+      <version>2026.06-jdk25-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-quartz</artifactId>
+      <version>4.1.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+      <version>3.1.1</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <id>huaweicloud</id>
+      <name>huawei</name>
+      <url>https://mirrors.huaweicloud.com/repository/maven/</url>
+    </repository>
+    <repository>
+      <id>aliyunmaven</id>
+      <name>aliyun</name>
+      <url>https://maven.aliyun.com/repository/public</url>
+    </repository>
+  </repositories>
+</project>

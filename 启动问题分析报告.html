@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>RuoYi-Vue-Pro 启动问题分析报告</title>
+<style>
+:root {
+  --bg: #0d1117; --card: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --red: #f85149;
+  --green: #3fb950; --yellow: #d29922; --blue: #58a6ff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, "Microsoft YaHei", sans-serif; line-height: 1.6; padding: 20px; }
+h1 { font-size: 24px; margin-bottom: 8px; }
+h2 { font-size: 18px; margin: 24px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); color: var(--blue); }
+h3 { font-size: 15px; margin: 16px 0 8px; }
+.subtitle { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+.card.red { border-left: 3px solid var(--red); }
+.card.green { border-left: 3px solid var(--green); }
+.card.yellow { border-left: 3px solid var(--yellow); }
+table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+th { color: var(--muted); font-weight: 600; }
+code { background: #1f2937; padding: 2px 6px; border-radius: 4px; font-size: 12px; color: var(--yellow); }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+.tag.red { background: rgba(248,81,73,0.15); color: var(--red); }
+.tag.green { background: rgba(63,185,80,0.15); color: var(--green); }
+.tag.yellow { background: rgba(210,153,34,0.15); color: var(--yellow); }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.issue { margin-bottom: 8px; }
+.issue-title { font-weight: 600; margin-bottom: 4px; }
+.issue-detail { color: var(--muted); font-size: 13px; padding-left: 16px; }
+.fix { background: rgba(63,185,80,0.08); border: 1px solid rgba(63,185,80,0.3); border-radius: 6px; padding: 8px 12px; margin-top: 6px; font-size: 13px; }
+.summary-box { background: linear-gradient(135deg, #1a1f2e, #1e293b); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.stat { display: inline-block; text-align: center; margin-right: 32px; }
+.stat-num { font-size: 28px; font-weight: 700; }
+.stat-label { font-size: 12px; color: var(--muted); }
+.stat-num.red { color: var(--red); }
+.stat-num.green { color: var(--green); }
+.stat-num.yellow { color: var(--yellow); }
+</style>
+</head>
+<body>
+
+<h1>RuoYi-Vue-Pro 启动问题分析报告</h1>
+<p class="subtitle">生成时间: 2026-08-26 | 项目路径: D:\实习\ruoyi-vue-pro-master-jdk25-backup-20260725-145245(2)\ruoyi-vue-pro-master-jdk25</p>
+
+<div class="summary-box">
+  <div class="stat"><div class="stat-num green">3</div><div class="stat-label">正常项</div></div>
+  <div class="stat"><div class="stat-num red">4</div><div class="stat-label">严重问题</div></div>
+  <div class="stat"><div class="stat-num yellow">2</div><div class="stat-label">待修复</div></div>
+  <div class="stat"><div class="stat-num green">93</div><div class="stat-label">已导入表</div></div>
+</div>
+
+<h2>1. 当前运行状态</h2>
+<div class="card green">
+  <h3>✅ 正在运行的服务</h3>
+  <table>
+    <tr><th>服务</th><th>状态</th><th>详情</th></tr>
+    <tr><td>后端 (Spring Boot)</td><td><span class="tag green">运行中</span></td><td>PID: 28528, 端口: 48080, JDK 25</td></tr>
+    <tr><td>MySQL 8.0</td><td><span class="tag green">运行中</span></td><td>数据库: ruoyi-vue-pro, 93 张表已导入</td></tr>
+    <tr><td>Redis 3.0.504</td><td><span class="tag green">运行中</span></td><td>端口: 6379, PING: PONG</td></tr>
+  </table>
+</div>
+
+<div class="card green">
+  <h3>✅ pom.xml 实际生效模块 (仅 3 个)</h3>
+  <table>
+    <tr><th>模块</th><th>说明</th><th>状态</th></tr>
+    <tr><td>yudao-module-system</td><td>系统管理</td><td><span class="tag green">已启用</span></td></tr>
+    <tr><td>yudao-module-infra</td><td>基础架构</td><td><span class="tag green">已启用</span></td></tr>
+    <tr><td>yudao-module-ai</td><td>AI 大模型</td><td><span class="tag green">已启用</span></td></tr>
+  </table>
+  <p style="margin-top:8px;color:var(--muted);font-size:13px;">已注释模块: member, report, bpm, pay, mp, product, promotion, trade, statistics, crm, erp, mes, wms, im, iot (共 15 个)</p>
+</div>
+
+<h2>2. 启动文件问题分析</h2>
+
+<h3>问题一: start_all.bat — 3 处硬编码路径错误</h3>
+<div class="card red">
+  <table>
+    <tr><th>配置项</th><th>脚本中的值</th><th>实际路径</th><th>状态</th></tr>
+    <tr>
+      <td>JAVA_HOME</td>
+      <td><code>D:\jdk-25.0.2</code></td>
+      <td><code>C:\Program Files\Microsoft\jdk-25.0.4.101-hotspot</code></td>
+      <td><span class="tag red">不存在</span></td>
+    </tr>
+    <tr>
+      <td>REDIS_CLI</td>
+      <td><code>D:\Redis-8.6.3\redis-cli.exe</code></td>
+      <td><code>C:\Program Files\Redis\redis-cli.exe</code></td>
+      <td><span class="tag red">不存在</span></td>
+    </tr>
+    <tr>
+      <td>MySQL 密码</td>
+      <td><code>root</code></td>
+      <td><code>123456</code></td>
+      <td><span class="tag red">错误</span></td>
+    </tr>
+    <tr>
+      <td>Profile</td>
+      <td><code>all-local</code></td>
+      <td><code>local</code> (all-local 中密码也是 root)</td>
+      <td><span class="tag red">不匹配</span></td>
+    </tr>
+  </table>
+  <div class="fix">💡 <b>修复方案:</b> 修正 JAVA_HOME、REDIS_CLI 路径，MySQL 密码改为 123456，使用 local profile（默认配置正确）。</div>
+</div>
+
+<h3>问题二: start.bat — 编码问题</h3>
+<div class="card yellow">
+  <div class="issue">
+    <div class="issue-title">无 BOM 的 UTF-8 编码</div>
+    <div class="issue-detail">bat 文件路径包含中文 "实习"，在 cmd.exe (GBK 环境) 中执行时可能乱码，导致路径解析失败。</div>
+  </div>
+  <div class="issue">
+    <div class="issue-title">pnpm 命令在 cmd 中不可用</div>
+    <div class="issue-detail">pnpm 仅在 TRAE VM 环境的 PowerShell 中可用 (<code>pnpm.ps1</code>)，普通 cmd 窗口可能找不到 pnpm 命令。</div>
+  </div>
+  <div class="fix">💡 <b>修复方案:</b> 将 start.bat 保存为 GBK 编码，或在 PowerShell 中执行。前端启动改用 <code>npx vite</code>。</div>
+</div>
+
+<h3>问题三: application-all-local.yaml — 数据库密码不匹配</h3>
+<div class="card red">
+  <div class="issue">
+    <div class="issue-title">密码仍是 root</div>
+    <div class="issue-detail"><code>application-all-local.yaml</code> 第 11 行: <code>password: root</code>，但实际 MySQL root 密码是 <code>123456</code>。已修改源码但未重新编译进 jar 包。</div>
+  </div>
+  <div class="fix">💡 <b>修复方案:</b> 使用 <code>local</code> profile（密码已正确为 123456），或重新编译时包含 all-local 配置。</div>
+</div>
+
+<h3>问题四: Redis 版本过低</h3>
+<div class="card yellow">
+  <div class="issue">
+    <div class="issue-title">Redis 3.0.504 — 不兼容 IoT/消息总线</div>
+    <div class="issue-detail">项目部分模块 (IoT、IM) 需要 Redis 5.0+。当前已注释这些模块所以不影响运行，但将来启用这些模块时必须升级。</div>
+  </div>
+  <div class="fix">💡 <b>修复方案:</b> 后续安装 Memurai (Redis 7 兼容 Windows) 或通过 WSL/Docker 运行 Redis 7。</div>
+</div>
+
+<h2>3. 缺失内容清单</h2>
+<div class="card red">
+  <h3>🔴 严重缺失 (影响功能)</h3>
+  <table>
+    <tr><th>缺失项</th><th>影响</th><th>修复方式</th></tr>
+    <tr>
+      <td>Quartz SQL 表</td>
+      <td>定时任务无法使用 (QRTZ_* 表为 0)</td>
+      <td>导入 <code>sql/mysql/quartz.sql</code></td>
+    </tr>
+    <tr>
+      <td>application-all-local.yaml 密码</td>
+      <td>使用 all-local profile 启动会失败</td>
+      <td>改用 local profile，或修改后重新编译</td>
+    </tr>
+    <tr>
+      <td>start_all.bat 路径</td>
+      <td>直接运行必定失败</td>
+      <td>修正 3 处路径 (见上方问题一)</td>
+    </tr>
+  </table>
+</div>
+
+<div class="card yellow">
+  <h3>🟡 待补充 (非必须)</h3>
+  <table>
+    <tr><th>缺失项</th><th>影响</th><th>是否需要</th></tr>
+    <tr>
+      <td>go-view.sql</td>
+      <td>GoView 大屏组件不可用</td>
+      <td>需要大屏功能时导入</td>
+    </tr>
+    <tr>
+      <td>mall-2024-07-22.sql</td>
+      <td>商城模块表缺失</td>
+      <td>mall 模块已注释，暂不需要</td>
+    </tr>
+    <tr>
+      <td>Redis 5.0+</td>
+      <td>IoT/IM 模块不可用</td>
+      <td>这些模块已注释，暂不需要</td>
+    </tr>
+    <tr>
+      <td>前端 pnpm.cmd (系统级)</td>
+      <td>start.bat 中 pnpm 可能找不到</td>
+      <td>使用 <code>npx pnpm dev</code> 或手动用 PowerShell 启动</td>
+    </tr>
+  </table>
+</div>
+
+<h2>4. 文件整理</h2>
+<div class="card">
+  <h3>项目关键文件清单</h3>
+  <table>
+    <tr><th>文件</th><th>位置</th><th>状态</th></tr>
+    <tr><td>start.bat (新建)</td><td>项目根目录</td><td><span class="tag yellow">编码待修复</span></td></tr>
+    <tr><td>start_all.bat (原始)</td><td>项目根目录</td><td><span class="tag red">路径全部错误</span></td></tr>
+    <tr><td>application.yaml</td><td>yudao-server/src/main/resources/</td><td><span class="tag green">正常</span></td></tr>
+    <tr><td>application-local.yaml</td><td>同上</td><td><span class="tag green">密码正确 (123456)</span></td></tr>
+    <tr><td>application-all-local.yaml</td><td>同上</td><td><span class="tag red">密码错误 (root)</span></td></tr>
+    <tr><td>application-dev.yaml</td><td>同上</td><td><span class="tag yellow">未使用</span></td></tr>
+    <tr><td>pom.xml (yudao-server)</td><td>yudao-server/</td><td><span class="tag green">已注释非核心模块</span></td></tr>
+    <tr><td>yudao-server.jar</td><td>yudao-server/target/</td><td><span class="tag green">423.9 MB, 已编译</span></td></tr>
+    <tr><td>.env.local (前端)</td><td>yudao-ui/yudao-ui-admin-vue3/</td><td><span class="tag green">配置正确</span></td></tr>
+    <tr><td>ruoyi-vue-pro.sql</td><td>sql/mysql/</td><td><span class="tag green">已导入 (93 表)</span></td></tr>
+    <tr><td>quartz.sql</td><td>sql/mysql/</td><td><span class="tag red">未导入</span></td></tr>
+    <tr><td>go-view.sql</td><td>sql/mysql/</td><td><span class="tag yellow">未导入</span></td></tr>
+    <tr><td>mall-2024-07-22.sql</td><td>sql/mysql/</td><td><span class="tag yellow">未导入 (不需要)</span></td></tr>
+  </table>
+</div>
+
+<h2>5. 修复步骤 (按优先级)</h2>
+<div class="card green">
+  <h3>立即修复 (5 步)</h3>
+  <table>
+    <tr><th>步骤</th><th>操作</th><th>命令/方式</th></tr>
+    <tr><td>1</td><td>导入 Quartz SQL</td><td><code>mysql -u root -p123456 ruoyi-vue-pro < sql\mysql\quartz.sql</code></td></tr>
+    <tr><td>2</td><td>修正 start.bat 编码</td><td>保存为 GBK/ANSI 编码</td></tr>
+    <tr><td>3</td><td>修正 start_all.bat 路径</td><td>修改 JAVA_HOME、REDIS_CLI、MySQL 密码</td></tr>
+    <tr><td>4</td><td>修复 all-local 密码</td><td>修改 application-all-local.yaml 中 password 为 123456</td></tr>
+    <tr><td>5</td><td>重新编译 jar</td><td><code>mvn package -DskipTests -pl yudao-server -am</code></td></tr>
+  </table>
+</div>
+
+<div style="margin-top:24px;color:var(--muted);font-size:12px;text-align:center;">
+  RuoYi-Vue-Pro 启动问题分析报告 | 2026-08-26
+</div>
+
+</body>
+</html>

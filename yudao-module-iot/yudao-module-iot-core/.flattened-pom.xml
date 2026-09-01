@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cn.iocoder.boot</groupId>
+  <artifactId>yudao-module-iot-core</artifactId>
+  <version>2026.06-jdk25-SNAPSHOT</version>
+  <name>yudao-module-iot-core</name>
+  <description>iot 模块下，提供 iot-biz 和 iot-gateway 模块的核心功能。例如说：
+        1. 消息总线：跨 iot-biz 和 iot-gateway 的设备消息。可选择使用 spring event、redis stream、rocketmq、kafka、rabbitmq 等。
+        2. 查询设备信息的通用 API</description>
+  <url>https://github.com/YunaiV/ruoyi-vue-pro/yudao-module-iot/yudao-module-iot-core</url>
+  <dependencies>
+    <dependency>
+      <groupId>cn.iocoder.boot</groupId>
+      <artifactId>yudao-common</artifactId>
+      <version>2026.06-jdk25-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+      <version>4.1.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>cn.iocoder.boot</groupId>
+      <artifactId>yudao-spring-boot-starter-mq</artifactId>
+      <version>2026.06-jdk25-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-redis</artifactId>
+      <version>4.1.0</version>
+      <scope>compile</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-spring-boot-starter</artifactId>
+      <version>2.3.6</version>
+      <scope>compile</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.amqp</groupId>
+      <artifactId>spring-rabbit</artifactId>
+      <version>4.1.0</version>
+      <scope>compile</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-kafka</artifactId>
+      <version>4.1.0</version>
+      <scope>compile</scope>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <id>huaweicloud</id>
+      <name>huawei</name>
+      <url>https://mirrors.huaweicloud.com/repository/maven/</url>
+    </repository>
+    <repository>
+      <id>aliyunmaven</id>
+      <name>aliyun</name>
+      <url>https://maven.aliyun.com/repository/public</url>
+    </repository>
+  </repositories>
+</project>

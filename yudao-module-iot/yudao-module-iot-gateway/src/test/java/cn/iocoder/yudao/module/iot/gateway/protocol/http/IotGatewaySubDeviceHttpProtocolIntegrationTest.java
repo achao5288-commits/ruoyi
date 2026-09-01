@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.iot.gateway.protocol.http;
+﻿package cn.iocoder.yudao.module.iot.gateway.protocol.http;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.http.HttpResponse;
@@ -54,7 +54,7 @@ public class IotGatewaySubDeviceHttpProtocolIntegrationTest {
     /**
      * 网关子设备 Token：从 {@link #testAuth()} 方法获取后，粘贴到这里
      */
-    private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9kdWN0S2V5IjoiakF1ZkVNVEYxVzZ3blBobiIsImV4cCI6MTc2OTg3MTI3NCwiZGV2aWNlTmFtZSI6ImNoYXp1by1pdCJ9.99sAlRalzMU3CqRlGStDzCwWSBJq6u3PJw48JQ3NpzQ";
+    private static final String TOKEN = "JWT-REDACTED";
 
     // ===================== 认证测试 =====================
 

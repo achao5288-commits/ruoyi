@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.ai.framework.ai.core.model.image;
+﻿package cn.iocoder.yudao.module.ai.framework.ai.core.model.image;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.thread.ThreadUtil;
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class StabilityAiImageModelTests {
 
     private final StabilityAiImageModel imageModel = new StabilityAiImageModel(
-            new StabilityAiApi("sk-e53UqbboF8QJCscYvzJscJxJXoFcFg4iJjl1oqgE7baJETmx") // 密钥
+            new StabilityAiApi("sk-REDACTED") // 密钥
     );
 
     @Test

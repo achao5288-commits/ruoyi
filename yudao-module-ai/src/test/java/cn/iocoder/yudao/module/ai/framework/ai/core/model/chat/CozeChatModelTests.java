@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.ai.framework.ai.core.model.chat;
+﻿package cn.iocoder.yudao.module.ai.framework.ai.core.model.chat;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class CozeChatModelTests {
     private final OpenAiChatModel chatModel = OpenAiChatModel.builder()
             .options(OpenAiChatOptions.builder()
                     .baseUrl("http://127.0.0.1:3000")
-                    .apiKey("app-4hy2d7fJauSbrKbzTKX1afuP") // apiKey
+                    .apiKey("app-REDACTED") // apiKey
                     .build())
             .build();
 

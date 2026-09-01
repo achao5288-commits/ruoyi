@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.iot.gateway.protocol.coap;
+﻿package cn.iocoder.yudao.module.iot.gateway.protocol.coap;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.IdUtil;
@@ -61,7 +61,7 @@ public class IotDirectDeviceCoapProtocolIntegrationTest {
     /**
      * 直连设备 Token：从 {@link #testAuth()} 方法获取后，粘贴到这里
      */
-    private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9kdWN0S2V5IjoiNGF5bVpnT1RPT0NyREtSVCIsImV4cCI6MTc2OTk5MjgxOSwiZGV2aWNlTmFtZSI6InNtYWxsIn0.UHLCXsoGNsKbtJcbTV3n1psp03G75hVcVpV4wwd39r4";
+    private static final String TOKEN = "JWT-REDACTED";
 
     @BeforeAll
     public static void initCaliforniumConfig() {

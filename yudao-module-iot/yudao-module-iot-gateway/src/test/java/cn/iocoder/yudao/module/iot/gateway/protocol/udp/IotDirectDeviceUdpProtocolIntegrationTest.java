@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.iot.gateway.protocol.udp;
+﻿package cn.iocoder.yudao.module.iot.gateway.protocol.udp;
 
 import cn.hutool.core.map.MapUtil;
 import cn.iocoder.yudao.module.iot.core.biz.dto.IotDeviceAuthReqDTO;
@@ -66,7 +66,7 @@ public class IotDirectDeviceUdpProtocolIntegrationTest {
     /**
      * 直连设备 Token：从 {@link #testAuth()} 方法获取后，粘贴到这里
      */
-    private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9kdWN0S2V5IjoiNGF5bVpnT1RPT0NyREtSVCIsImV4cCI6MTc3MDUyNTA0MywiZGV2aWNlTmFtZSI6InNtYWxsIn0.W9Mo-Oe1ZNLDkINndKieUeW1XhDzhVp0W0zTAwO6hJM";
+    private static final String TOKEN = "JWT-REDACTED";
 
     // ===================== 认证测试 =====================
 

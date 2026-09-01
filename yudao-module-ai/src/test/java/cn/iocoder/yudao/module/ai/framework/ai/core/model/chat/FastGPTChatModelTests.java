@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.ai.framework.ai.core.model.chat;
+﻿package cn.iocoder.yudao.module.ai.framework.ai.core.model.chat;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class FastGPTChatModelTests {
     private final OpenAiChatModel chatModel = OpenAiChatModel.builder()
             .options(OpenAiChatOptions.builder()
                     .baseUrl("https://cloud.fastgpt.cn/api")
-                    .apiKey("fastgpt-aqcc61kFtF8CeaglnGAfQOCIDWwjGdJVJHv6hIlMo28otFlva2aZNK") // apiKey
+                    .apiKey("fastgpt-REDACTED") // apiKey
                     .build())
             .build();
 

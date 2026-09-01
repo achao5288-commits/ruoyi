@@ -29,7 +29,7 @@ spring:
                 master:
                     url: jdbc:mysql://127.0.0.1:3306/ruoyi-vue-pro?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true&rewriteBatchedStatements=true
                     username: root
-                    password: root
+                    password: 123456
                 tdengine:
                     lazy: true
                     url: jdbc:TAOS-WS://127.0.0.1:6041/ruoyi_vue_pro?varcharAsString=true&enableAutoReconnect=true
@@ -50,8 +50,8 @@ yudao:
         enable: false
     iot:
         tdengine:
-            # Windows 不支持 TDengine OSS Server，本地开发禁用。IoT 设备时序数据功能不可用。
-            enabled: false
+            # 使用本机 TDengine 保存 IoT 设备消息与属性时序数据。
+            enabled: true
     report:
         jmreport:
             enabled: false
